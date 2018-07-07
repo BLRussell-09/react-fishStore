@@ -4,7 +4,7 @@ import './App.css';
 // import Fish from '../components/Fish/Fish.js';
 import Home from '../components/Home/Home.js';
 import Inventory from '../components/Inventory/Inventory.js';
-// import Login from '../components/Login/Login.js';
+import Login from '../components/Login/Login.js';
 import Navbar from '../components/Navbar/Navbar.js';
 // import New from '../components/New/New.js';
 // import Order from '../components/Order/Order.js';
@@ -80,6 +80,11 @@ class App extends Component {
                     path='/register'
                     authed={this.state.authed}
                     component={Register}
+                  />
+                  <PublicRoute
+                    path='/login'
+                    authed={this.state.authed}
+                    component={Login}
                   />
                 </Switch>
               </div>
