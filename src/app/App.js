@@ -1,16 +1,14 @@
 import React, { Component } from 'react';
 import {Route, BrowserRouter, Redirect, Switch} from 'react-router-dom';
 import './App.css';
-// import Fish from '../components/Fish/Fish.js';
 import Home from '../components/Home/Home.js';
 import Inventory from '../components/Inventory/Inventory.js';
 import Login from '../components/Login/Login.js';
 import Navbar from '../components/Navbar/Navbar.js';
-// import New from '../components/New/New.js';
-// import Order from '../components/Order/Order.js';
-// import OrderSpa from '../components/OrderSpa/OrderSpa.js';
+import New from '../components/New/New.js';
+import OrderSpa from '../components/OrderSpa/OrderSpa.js';
 import Register from '../components/Register/Register.js';
-// import SingleOrder from '../components/SingleOrder/SingleOrder.js';
+import SingleOrder from '../components/SingleOrder/SingleOrder.js';
 import firebase from 'firebase';
 import fbConnection from '../firebaseRequests/connection';
 fbConnection();
@@ -82,6 +80,11 @@ class App extends Component {
     this.removeListener();
   }
 
+  runAway = () =>
+  {
+    this.setState({authed: false});
+  }
+
   render () {
     return (
       <div className="App">
@@ -89,6 +92,7 @@ class App extends Component {
           <div>
             <Navbar
               authed={this.state.authed}
+              runAway={this.runAway}
             />
             <div className="container">
               <div className="row">
@@ -98,6 +102,21 @@ class App extends Component {
                     path="/inventory"
                     authed={this.state.authed}
                     component={Inventory}
+                  />
+                  <PrivateRoute
+                    path="/new"
+                    authed={this.state.authed}
+                    component={New}
+                  />
+                  <PrivateRoute
+                    path="/orders"
+                    authed={this.state.authed}
+                    component={OrderSpa}
+                  />
+                  <PrivateRoute
+                    path="/order/:id"
+                    authed={this.state.authed}
+                    component={SingleOrder}
                   />
                   <PublicRoute
                     path='/register'
