@@ -11,6 +11,7 @@ import Navbar from '../components/Navbar/Navbar.js';
 // import OrderSpa from '../components/OrderSpa/OrderSpa.js';
 import Register from '../components/Register/Register.js';
 // import SingleOrder from '../components/SingleOrder/SingleOrder.js';
+import firebase from 'firebase';
 import fbConnection from '../firebaseRequests/connection';
 fbConnection();
 
@@ -61,12 +62,34 @@ class App extends Component {
     authed: false,
   }
 
+  componentDidMount ()
+  {
+    this.removeListener = firebase.auth().onAuthStateChanged((user) =>
+    {
+      if (user)
+      {
+        this.setState({authed: true});
+      }
+      else
+      {
+        this.setState({authed: false});
+      }
+    });
+  };
+
+  componentWillUnmount ()
+  {
+    this.removeListener();
+  }
+
   render () {
     return (
       <div className="App">
         <BrowserRouter>
           <div>
-            <Navbar/>
+            <Navbar
+              authed={this.state.authed}
+            />
             <div className="container">
               <div className="row">
                 <Switch>
