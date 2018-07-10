@@ -27,6 +27,13 @@ class New extends React.Component
       });
   }
 
+  addToOrder = (key) =>
+  {
+    const newOrder = {...this.state.order};
+    newOrder[key] = newOrder[key] + 1 || 1;
+    this.setState({order: newOrder});
+  }
+
   render ()
   {
 
@@ -36,6 +43,7 @@ class New extends React.Component
         <Fish
           details={fish}
           key={fish.id}
+          addToOrder={this.addToOrder}
         />
       );
     });
