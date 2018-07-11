@@ -32,4 +32,39 @@ const postRequest = (newOrder) =>
   });
 };
 
-export default {getRequest, postRequest};
+const deleteRequest = (firebaseId) =>
+{
+  return new Promise((resolve, reject) =>
+  {
+    axios
+      .delete(`${constants.firebaseConfig.databaseURL}/orders/${firebaseId}.json`)
+      .then((res) => { resolve(res); })
+      .catch((err) => { console.error(err); });
+  });
+};
+
+const getSingleRequest = (id) => {
+  return new Promise((resolve, reject) => {
+    axios
+      .get(`${constants.firebaseConfig.databaseURL}/orders/${id}.json`)
+      .then(res => {
+        resolve(res.data);
+      })
+      .catch(err => {
+        reject(err);
+      });
+  });
+};
+
+const putRequest = (orderId, updatedOrder) =>
+{
+  return new Promise((resolve, reject) =>
+  {
+    axios
+      .put(`${constants.firebaseConfig.databaseURL}/orders/${orderId}.json`, updatedOrder)
+      .then((res) => { resolve(res); })
+      .catch((err) => { console.error(err); });
+  });
+};
+
+export default {getRequest, getSingleRequest, postRequest, putRequest, deleteRequest};
