@@ -29,13 +29,18 @@ class OrderSpa extends React.Component
 
   render ()
   {
-
     const orderComponents = this.state.orders.map((order) =>
     {
+      const singleOrderClickEvent = () =>
+      {
+        this.props.history.push(`/order/${order.id}`);
+      };
+
       return (
         <button
-          className="col-xs-12 btn btn-default"
+          className="col-xs-12 btn btn-default order-button"
           key={order.id}
+          onClick={singleOrderClickEvent}
         >
           <span className="col-xs-6">Order Number: {order.id}</span>
           <span className="col-xs-6">Order Date: {moment(order.dateTime).format('LLL')}</span>
